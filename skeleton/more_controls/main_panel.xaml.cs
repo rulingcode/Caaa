@@ -35,10 +35,10 @@ namespace skeleton.more_controls
         {
 
         }
-        internal void show(z_page page)
+        internal void show(api val)
         {
-            a.page = page;
-            stage.Child = page.ui;
+            a.page = val;
+            stage.Child = (val as object) as UIElement;
         }
     }
 }

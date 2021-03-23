@@ -1,0 +1,25 @@
+﻿<Border x:Class="skeleton.home.p_user_selector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:skeleton.home"
+             mc:Ignorable="d" 
+        BorderBrush="LightBlue"
+        BorderThickness="2"
+        CornerRadius="4">
+    <StackPanel>
+        <TextBlock Padding="10" FlowDirection="RightToLeft">
+            <Run Text="برای افزودن کاربران جدید، از صفحه 'ورود' استفاده کنید."/>
+        <LineBreak />
+         <LineBreak />
+         <Run  FontSize="16" Foreground="Brown" Text="لیست کاربران ثبت شده"/>
+        </TextBlock>
+        <Border CornerRadius="4" Margin="20" BorderBrush="LightBlue" BorderThickness="2">
+            <ListBox BorderThickness="0"  Margin="2" >
+                <ListBoxItem Content="09132174431"/>
+                <ListBoxItem FlowDirection="RightToLeft" Content="محسن پیرنجم الدین"/>
+            </ListBox>
+        </Border>
+    </StackPanel>
+</Border>

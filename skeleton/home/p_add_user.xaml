@@ -1,0 +1,19 @@
+﻿<Border x:Class="skeleton.home.p_add_user"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:skeleton.home"
+             xmlns:more="clr-namespace:skeleton.more_controls"
+             d:Width="300"
+             mc:Ignorable="d">
+
+    <StackPanel>
+        <more:label_box title="شماره تلفن همراه" x:Name="phone">
+            <more:text_box />
+        </more:label_box>
+        <more:label_box title="کد پیامک شده را وارد کنید.">
+            <PasswordBox/>
+        </more:label_box>
+    </StackPanel>
+</Border>

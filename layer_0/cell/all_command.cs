@@ -12,5 +12,6 @@ namespace layer_0.cell
         public const string reset_all_users = nameof(reset_all_users);
         public const string address_updated = nameof(address_updated);
         public const string device_updated = nameof(device_updated);
+        public const string developer_app = nameof(developer_app);
     }
 }

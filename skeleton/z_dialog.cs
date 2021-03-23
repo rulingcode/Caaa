@@ -18,7 +18,7 @@ namespace skeleton
     }
     public abstract class z<T> : z_dialog
     {
-        public Task<T> run(z_page page) => page.run<T>(this);
+        public Task<T> run(api api) => api.run_dialog<T>(this);
         TaskCompletionSource<T> source;
         SemaphoreSlim locker = new SemaphoreSlim(1, 1);
         internal async override Task<object> get()

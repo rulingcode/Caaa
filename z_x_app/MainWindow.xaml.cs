@@ -1,5 +1,4 @@
-﻿using layer_0.cell;
-using layer_0.x_user;
+﻿using layer_0.x_app;
 using layer_x;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace z_x_user
+namespace z_x_app
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,9 +25,7 @@ namespace z_x_user
         public MainWindow()
         {
             InitializeComponent();
-            x.z_create<sync_user>(this);
-            x.add_y<z.upsert_contact>();
-            x.add_y<z.upsert_info>();
+            x.z_create<sync_app>(this);
         }
     }
 }

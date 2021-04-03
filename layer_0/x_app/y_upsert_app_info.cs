@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace layer_0.x_app
 {
-    public class sync_app : m_sync
+    public class y_upsert_app_info : z_y<y_upsert_app_info.o>
     {
+        public override string z_yid => nameof(y_upsert_app_info);
         public override e_permission z_permission => e_permission.u;
-        public override string z_xid => "x_app";
+        public string appid { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public DateTime last_update { get; set; }
+        public class o : o_base<e_error> { }
+        public enum error
+        {
+            non,
+            invalid_appid,
+            duplicate_name
+        }
     }
 }

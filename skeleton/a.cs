@@ -16,6 +16,5 @@ namespace skeleton
         internal static api3 api3;
         internal static c_run run_null;
         internal static api page;
-        internal static user_menu_factory umf;
     }
 }

@@ -14,12 +14,12 @@ namespace layer_x
         public static c_run run_x { get; private set; }
         public static c_run run_null { get; private set; }
         public static void add_y<T>() where T : y, new() => a.api3.s_add_y<T>();
-        public static void z_create<T>(string xid, Window window) where T : m_sync, new()
+        public static void z_create<T>(Window window) where T : m_sync, new()
         {
-            a.xid = xid;
-            a.api3 = api3_factory.create<T>(xid);
-            window.Title = xid;
-            a.xid = xid;
+            T dv = new T();
+            a.xid = dv.z_xid;
+            a.api3 = api3_factory.create<T>(a.xid);
+            window.Title = a.xid;
             run_x = a.api3.c_run(a.xid);
             run_null = a.api3.c_run();
             a.key = new key();

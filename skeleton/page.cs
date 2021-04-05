@@ -9,6 +9,7 @@ namespace skeleton
 {
     public interface page
     {
+        string titel { get; }
         void start(api api);
         void focus();
         UIElement z_ui { get; }

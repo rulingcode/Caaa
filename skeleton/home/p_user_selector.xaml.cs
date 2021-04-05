@@ -23,6 +23,7 @@ namespace skeleton.home
             InitializeComponent();
         }
         public UIElement z_ui => this;
+        public string titel => "لیست کاربران ثبت شده";
         public void focus()
         {
             lst_users.SelectedIndex = 0;

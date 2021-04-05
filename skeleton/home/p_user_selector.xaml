@@ -6,18 +6,10 @@
              xmlns:local="clr-namespace:skeleton.home"
              mc:Ignorable="d" 
         CornerRadius="4">
-    <StackPanel>
-        <TextBlock Padding="10" FlowDirection="RightToLeft">
-            <Run Text="برای افزودن کاربران جدید، از صفحه 'ورود' استفاده کنید."/>
-        <LineBreak />
-         <LineBreak />
-         <Run  FontSize="16" Foreground="Brown" Text="لیست کاربران ثبت شده"/>
-        </TextBlock>
-        <Border CornerRadius="4" Margin="20" BorderBrush="LightBlue" BorderThickness="2">
-            <ListBox FlowDirection="RightToLeft" x:Name="lst_users" BorderThickness="0"  Margin="2" >
-                <ListBoxItem Content="افزودن یک کاربر جدید"/>
-                <d:ListBoxItem Content="محسن پیرنجم الدین"/>
-            </ListBox>
-        </Border>
-    </StackPanel>
+    <Border VerticalAlignment="Top" CornerRadius="4" Margin="20" BorderBrush="LightBlue" BorderThickness="2">
+        <ListBox FlowDirection="RightToLeft" x:Name="lst_users" BorderThickness="0"  Margin="2" >
+            <ListBoxItem Content="افزودن یک کاربر جدید"/>
+            <d:ListBoxItem Content="محسن پیرنجم الدین"/>
+        </ListBox>
+    </Border>
 </Border>

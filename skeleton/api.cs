@@ -12,19 +12,29 @@ namespace skeleton
 {
     public class api
     {
-        internal api_ui api_ui = new api_ui() { HorizontalAlignment = HorizontalAlignment.Left };
+        internal StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(1) };
+        api_ui api_ui = new api_ui() { HorizontalAlignment = HorizontalAlignment.Left };
         page main_page;
         List<Border> borders = new List<Border>();
         SolidColorBrush color = new SolidColorBrush(Color.FromArgb(70, 0, 0, 0));
         public api(page page)
         {
+            stack.Children.Add(api_ui);
             main_page = page;
             api_ui.stage.Children.Add(page.z_ui);
             page.start(this);
         }
-        public Task<T> side<T>(page<T> page)
+        public async Task<T> side<T>(page<T> page)
         {
-            return default;
+            TaskCompletionSource<T> rt = new TaskCompletionSource<T>();
+            page.reply = rt.SetResult;
+            api api = new api(page);
+            stack.Children.Add(api.stack);
+            api.z_focus();
+            var dv = await rt.Task;
+            z_focus();
+            stack.Children.Remove(api.stack);
+            return dv;
         }
         public async Task<T> dialog<T>(page<T> page, bool background = false)
         {

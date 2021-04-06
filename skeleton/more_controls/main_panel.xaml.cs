@@ -43,7 +43,7 @@ namespace skeleton.more_controls
         internal void show(api val)
         {
             a.api = val;
-            stage.Child = val.api_ui;
+            stage.Child = val.stack;
             val.z_focus();
         }
     }

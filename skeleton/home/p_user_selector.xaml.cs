@@ -43,7 +43,7 @@ namespace skeleton.home
         {
             if (e.Key == Key.Enter)
             {
-                var dv = await api2.dialog(new p_add_user(), true);
+                var dv = await api2.side(new p_add_user());
             }
         }
     }

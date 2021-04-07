@@ -79,9 +79,12 @@ namespace skeleton.home
         {
             if (e.Key == Key.Enter)
             {
-                var dv = await api.message(z_message.e_type.error, "test", "open", "close");
-                if (dv == "close")
-                    reply(dv);
+                layer_0.x_center.y_send_code y = new() { a_phoneid = txt_phone.Text };
+                var dv = await api.run_null(y);
+                if (dv.a_error != layer_0.x_center.y_send_code.error.non)
+                {
+                    await api.message(z_message.e_type.error, "شماره تلفن همراه وارد شده معتبر نیست.");
+                }
             }
         }
     }

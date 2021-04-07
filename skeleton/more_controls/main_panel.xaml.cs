@@ -32,7 +32,7 @@ namespace skeleton.more_controls
         async void first_show()
         {
             await Task.Delay(1000);
-            a.user_selector = new api(new p_user_selector());
+            a.user_selector = new api(new p_user_selector(), null, a.run_null);
             show(a.user_selector);
         }
 

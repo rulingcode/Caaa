@@ -1,4 +1,5 @@
-﻿using skeleton.more_controls;
+﻿using layer_0.cell;
+using skeleton.more_controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,28 @@ namespace skeleton
         page main_page;
         List<Border> borders = new List<Border>();
         SolidColorBrush color = new SolidColorBrush(Color.FromArgb(70, 0, 0, 0));
-        public api(page page)
+        c_run c_run { get; }
+        c_run c_run_null { get; }
+        internal api(page page, c_run c_run, c_run c_run_null)
         {
+            this.c_run = c_run;
+            this.c_run_null = c_run_null;
             api_ui.heder.text = page.title;
             set(page);
             stack.Children.Add(api_ui);
             main_page = page;
             api_ui.stage.Children.Add(page.z_ui);
             page.start(this);
+        }
+        public Task<T> run<T>(y<T> val) where T : o_base, new()
+        {
+            if (c_run == null)
+                throw new Exception("vlfkbkhjbnkbmgkbjcmdkv");
+            return val.run(c_run);
+        }
+        public Task<T> run_null<T>(y<T> val) where T : o_base, new()
+        {
+            return val.run(c_run_null);
         }
         void set(page page)
         {
@@ -47,7 +62,7 @@ namespace skeleton
             set(page);
             TaskCompletionSource<T> rt = new TaskCompletionSource<T>();
             page.reply = rt.SetResult;
-            api api = new api(page);
+            api api = new api(page, c_run, c_run_null);
             stack.Children.Add(api.stack);
             api.z_focus();
             var dv = await rt.Task;

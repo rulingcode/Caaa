@@ -15,5 +15,8 @@ namespace z_x_center.m
     {
         public string phoneid { get; set; }
         public string password { get; set; }
+        public bool active { get; set; }
+        public DateTime first_time { get; set; }
+        public DateTime last_time { get; set; }
     }
 }

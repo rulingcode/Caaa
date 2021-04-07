@@ -32,7 +32,7 @@ namespace skeleton.more_controls
         async void first_show()
         {
             await Task.Delay(1000);
-            a.user_selector = new api(new p_user_selector(), null, a.run_null);
+            a.user_selector = new api(new p_user_selector(), a.run_null);
             show(a.user_selector);
         }
 
@@ -42,9 +42,14 @@ namespace skeleton.more_controls
         }
         internal void show(api val)
         {
+            if (a.api != null)
+            {
+                a.api.z_focus(false);
+                a.api = null;
+            }
             a.api = val;
             stage.Child = val.stack;
-            val.z_focus();
+            val.z_focus(true);
         }
     }
 }

@@ -16,14 +16,15 @@ namespace skeleton
         internal StackPanel stack = new StackPanel() { Orientation = Orientation.Horizontal, Margin = new Thickness(1) };
         api_ui api_ui = new api_ui() { HorizontalAlignment = HorizontalAlignment.Left };
         page main_page;
-        List<Border> borders = new List<Border>();
+        page dialog_page;
+        int n_lock_screen = 0;
         SolidColorBrush color = new SolidColorBrush(Color.FromArgb(70, 0, 0, 0));
+        loading loading = new loading();
+        bool is_focus = false;
         c_run c_run { get; }
-        c_run c_run_null { get; }
-        internal api(page page, c_run c_run, c_run c_run_null)
+        internal api(page page, c_run c_run)
         {
             this.c_run = c_run;
-            this.c_run_null = c_run_null;
             api_ui.heder.text = page.title;
             set(page);
             stack.Children.Add(api_ui);
@@ -31,15 +32,52 @@ namespace skeleton
             api_ui.stage.Children.Add(page.z_ui);
             page.start(this);
         }
-        public Task<T> run<T>(y<T> val) where T : o_base, new()
+        public async Task<T> run<T>(y<T> val, bool lock_screen = true) where T : o_base, new()
         {
-            if (c_run == null)
-                throw new Exception("vlfkbkhjbnkbmgkbjcmdkv");
-            return val.run(c_run);
+            if (lock_screen)
+                this.lock_screen(true);
+            var dv = await val.run(c_run);
+            if (lock_screen)
+                this.lock_screen(false);
+            return dv;
         }
-        public Task<T> run_null<T>(y<T> val) where T : o_base, new()
+        public void lock_screen(bool add = false)
         {
-            return val.run(c_run_null);
+            if (add)
+            {
+                n_lock_screen++;
+                if (n_lock_screen == 1)
+                {
+                    reset();
+                    api_ui.stage.Children.Add(loading);
+                }
+            }
+            else
+            {
+                n_lock_screen--;
+                if (n_lock_screen == 0)
+                {
+                    reset();
+                    api_ui.stage.Children.Remove(loading);
+                }
+            }
+        }
+        private void reset()
+        {
+            if (n_lock_screen == 0)
+            {
+                main_page.z_ui.IsEnabled = true;
+                if (dialog_page != null)
+                    dialog_page.z_ui.IsEnabled = true;
+                if (is_focus)
+                    z_focus(true);
+            }
+            else
+            {
+                main_page.z_ui.IsEnabled = false;
+                if (dialog_page != null)
+                    dialog_page.z_ui.IsEnabled = false;
+            }
         }
         void set(page page)
         {
@@ -62,44 +100,46 @@ namespace skeleton
             set(page);
             TaskCompletionSource<T> rt = new TaskCompletionSource<T>();
             page.reply = rt.SetResult;
-            api api = new api(page, c_run, c_run_null);
+            api api = new api(page, c_run);
             stack.Children.Add(api.stack);
-            api.z_focus();
+            if (is_focus)
+                api.z_focus(true);
             var dv = await rt.Task;
-            z_focus();
+            if (is_focus)
+                z_focus(true);
             stack.Children.Remove(api.stack);
             return dv;
         }
-        public async Task<T> dialog<T>(page<T> page, bool background = false)
+        public async Task<T> dialog<T>(page<T> page)
         {
+            dialog_page = page;
             set(page);
             TaskCompletionSource<T> rt = new TaskCompletionSource<T>();
             page.reply = rt.SetResult;
-            if (borders.Count == 0)
-                main_page.z_ui.IsEnabled = false;
-            else
-                borders.Last().IsEnabled = false;
-            borders.Add(new Border() { Background = background ? Brushes.White : color, CornerRadius = new CornerRadius(2), DataContext = page });
-            api_ui.stage.Children.Add(borders.Last());
-            borders.Last().Child = page.z_ui;
+            main_page.z_ui.IsEnabled = false;
+            Border border = new Border() { Background = color, CornerRadius = new CornerRadius(2), DataContext = page };
+            api_ui.stage.Children.Add(border);
+            border.Child = page.z_ui;
             page.start(this);
             page.focus();
             var dv = await rt.Task;
-            api_ui.stage.Children.Remove(borders.Last());
-            borders.Remove(borders.Last());
-            if (borders.Count == 0)
-                main_page.z_ui.IsEnabled = true;
-            else
-                borders.Last().IsEnabled = true;
-            z_focus();
+            dialog_page = null;
+            api_ui.stage.Children.Remove(border);
+            main_page.z_ui.IsEnabled = true;
+            if (is_focus)
+                z_focus(true);
             return dv;
         }
-        internal void z_focus()
+        internal void z_focus(bool val)
         {
-            if (borders.Count == 0)
-                main_page.focus();
-            else
-                (borders.Last().DataContext as page).focus();
+            is_focus = val;
+            if (is_focus)
+            {
+                if (dialog_page == null)
+                    main_page.focus();
+                else
+                    dialog_page.focus();
+            }
         }
         public async Task<string> message(z_message.e_type e, string text, params string[] options)
         {

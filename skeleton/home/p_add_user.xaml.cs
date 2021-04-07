@@ -79,13 +79,26 @@ namespace skeleton.home
         {
             if (e.Key == Key.Enter)
             {
+                if (txt_phone.Text.Length != 11)
+                {
+                    await invalid_phone_message();
+                    return;
+                }
                 layer_0.x_center.y_send_code y = new() { a_phoneid = txt_phone.Text };
-                var dv = await api.run_null(y);
+                var dv = await api.run(y);
                 if (dv.a_error != layer_0.x_center.y_send_code.error.non)
                 {
-                    await api.message(z_message.e_type.error, "شماره تلفن همراه وارد شده معتبر نیست.");
+                    await invalid_phone_message();
+                }
+                else
+                {
+
                 }
             }
+        }
+        private async Task invalid_phone_message()
+        {
+            await api.message(z_message.e_type.error, "شماره تلفن همراه وارد شده معتبر نیست.");
         }
     }
 }

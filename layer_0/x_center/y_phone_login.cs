@@ -14,9 +14,14 @@ namespace layer_0.x_center
         public override e_permission z_permission => e_permission.k;
         public string a_phoneid { get; set; }
         public string a_password { get; set; }
-        public class o : o_base
+        public class o : o_base<error>
         {
             public string a_userid { get; set; }
+        }
+        public enum error
+        {
+            non,
+            invalid_parametrs
         }
     }
 }

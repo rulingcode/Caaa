@@ -22,10 +22,11 @@ namespace z_x_center.z
             var user = await db_user.get(i => i.phoneid == a_phoneid);
             if (user == null || user.password != a_password)
             {
-                reply(new o() { z_error = e_error.invalid_parametrs });
+                reply(new o() { a_error = error.invalid_parametrs });
                 return;
             }
             user.password = null;
+            user.active = true;
             await db_user.upsert(user);
             var db_device = z_db.general_x<sync_center>();
             await a.add_user(z_deviceid, user.id);

@@ -12,7 +12,7 @@ namespace layer_3.c
     class db<T> : c_db<T> where T : m_id
     {
         public ILiteCollection<T> coll { get; }
-        internal db(ILiteCollection<T> lite) => coll = lite;
+        internal db(ILiteCollection<T> coll) => this.coll = coll;
         public bool any(Expression<Func<T, bool>> filter) => coll.Find(filter).Any();
         public T get(string id) => coll.FindOne(i => i.id == id);
         public T get(Expression<Func<T, bool>> filter) => coll.FindOne(filter);

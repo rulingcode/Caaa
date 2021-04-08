@@ -35,6 +35,7 @@ namespace skeleton.home
             InitializeComponent();
             txt_phone = (text_box)phone.child;
             txt_code = (PasswordBox)code.child;
+            txt_phone.Text = "01234567890";
         }
         void reset()
         {
@@ -51,6 +52,7 @@ namespace skeleton.home
                     }
                     break;
             }
+            focus();
         }
         public Action<string> reply { get; set; }
         public FrameworkElement z_ui => this;
@@ -73,28 +75,60 @@ namespace skeleton.home
             this.api = api2;
             reset();
             txt_phone.PreviewKeyDown += Txt_phone_PreviewKeyDown;
+            txt_code.PreviewKeyDown += Txt_code_PreviewKeyDown;
         }
-
+        async void Txt_code_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (txt_code.Password?.Length == 5)
+                {
+                    layer_0.x_center.y_phone_login y = new();
+                    y.a_phoneid = txt_phone.Text;
+                    y.a_password = txt_code.Password;
+                    var dv = await api.run(y);
+                    if (dv.a_error == layer_0.x_center.y_phone_login.error.non)
+                    {
+                        
+                    }
+                    else
+                    {
+                        await invalid_code_message();
+                    }
+                }
+                else
+                    await invalid_code_message();
+            }
+        }
+        private async Task invalid_code_message()
+        {
+            await api.message(z_message.e_type.error, "کد فعال سازی صحیح نیست.");
+        }
         async void Txt_phone_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (txt_phone.Text.Length != 11)
+                if (is_valid_phone())
                 {
                     await invalid_phone_message();
                     return;
                 }
                 layer_0.x_center.y_send_code y = new() { a_phoneid = txt_phone.Text };
                 var dv = await api.run(y);
-                if (dv.a_error != layer_0.x_center.y_send_code.error.non)
+                if (dv.a_error == layer_0.x_center.y_send_code.error.non)
                 {
-                    await invalid_phone_message();
+                    this.e = e_state.set_code;
+                    reset();
                 }
                 else
                 {
-
+                    await invalid_phone_message();
                 }
             }
+        }
+        private bool is_valid_phone()
+        {
+            return txt_phone.Text.Length != 11;
         }
         private async Task invalid_phone_message()
         {

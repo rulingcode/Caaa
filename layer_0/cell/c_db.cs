@@ -10,11 +10,11 @@ namespace layer_0.cell
 {
     public interface c_db<T> where T : m_id
     {
-        ILiteCollection<T> coll { get; }
-        void upsert(T val);
-        T get(string id);
-        T get(Expression<Func<T, bool>> filter);
-        bool any(Expression<Func<T, bool>> filter);
-        void delete(string id);
+        Task upsert(T val);
+        Task<T> get(string id);
+        Task<T> get(Expression<Func<T, bool>> filter);
+        Task<bool> any(Expression<Func<T, bool>> filter);
+        Task delete(string id);
+        Task delete_many(Expression<Func<T, bool>> p);
     }
 }

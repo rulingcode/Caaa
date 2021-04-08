@@ -32,7 +32,6 @@ namespace layer_3.c
             var dv = type.Assembly.GetTypes().Where(i => i.IsSubclassOf(type)).Select(i => new item(i)).ToArray();
             list.AddRange(dv);
         }
-
         internal void run(m_notify rsv)
         {
             if (a.api2.s_xid != null)
@@ -41,36 +40,31 @@ namespace layer_3.c
                 c_sync(rsv);
         }
 
-        private void c_sync(m_notify rsv)
+        async void c_sync(m_notify rsv)
         {
             if (rsv.userid == all_command.reset_all_users)
             {
                 return;
             }
-            ThreadPool.QueueUserWorkItem((obj) =>
+            var type = list.FirstOrDefault(i => i.xid == rsv.xid);
+            if (type == null)
+                return;
+            var db = a.c_db.general<m.c_history>();
+            string id = rsv.xid + "_" + rsv.userid;
+            var time = ((await db.get(id))?.time) ?? default;
+            y_sync y = new() { a_time = time, a_xid = rsv.xid };
+            var o = await y.run(a.api3.c_run(rsv.userid));
+            if (o.deleted != null && o.deleted.Length != 0)
+                await db.delete_many(i => o.deleted.Contains(i.id));
+            if (o.updated != null && o.updated.Length != 0)
             {
-                var type = list.FirstOrDefault(i => i.xid == rsv.xid);
-                if (type == null)
-                    return;
-                var db = a.c_db.general<m.c_history>();
-                string id = rsv.xid + "_" + rsv.userid;
-                var time = (db.get(id)?.time) ?? default;
-                y_sync y = new() { a_time = time, a_xid = rsv.xid };
-                var o = y.run(a.api3.c_run(rsv.userid)).Result;
-                if (o.deleted != null && o.deleted.Length != 0)
-                {
-                    db.coll.DeleteMany(i => o.deleted.Contains(i.id));
-                }
-                if (o.updated != null && o.updated.Length != 0)
-                {
-                    var items = o.updated.Select(i => JsonConvert.DeserializeObject(i, type.type)).ToArray();
-                    var db2 = a.c_db.a_sync<m_sync>(rsv.xid, rsv.userid);
-                    foreach (m_sync item in items)
-                        db2.upsert(item);
-                }
-                if (o.time != time)
-                    db.upsert(new m.c_history() { id = id, time = o.time });
-            });
+                var items = o.updated.Select(i => JsonConvert.DeserializeObject(i, type.type)).ToArray();
+                var db2 = a.c_db.a_sync<m_sync>(rsv.xid, rsv.userid);
+                foreach (m_sync item in items)
+                    await db2.upsert(item);
+            }
+            if (o.time != time)
+                await db.upsert(new m.c_history() { id = id, time = o.time });
         }
 
         async void x_sync(m_notify rsv)

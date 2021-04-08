@@ -33,7 +33,7 @@ namespace skeleton
             a.api3 = api3_factory.create("db_skeleton");
             a.api3.c_report = report;
             a.run_null = a.api3.c_run();
-            if (connect())
+            if (await connect())
                 go();
             else
             {
@@ -81,10 +81,10 @@ namespace skeleton
             a.main_panel = new main_panel();
             a.window.Content = a.main_panel;
         }
-        internal bool connect()
+        internal async Task<bool> connect()
         {
             var db = a.api3.c_db.general<m_data>();
-            var dv = db.get(i => i.id == "key")?.data;
+            var dv = (await db.get(i => i.id == "key"))?.data;
             if (dv == null)
                 return false;
             else
@@ -112,7 +112,7 @@ namespace skeleton
             {
                 dv_key.id = o.deviceid;
                 var db = a.api3.c_db.general<m_data>();
-                db.upsert(new m_data()
+                await db.upsert(new m_data()
                 {
                     id = "key",
                     data = p_crypto.convert(dv_key)

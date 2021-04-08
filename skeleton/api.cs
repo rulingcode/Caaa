@@ -104,7 +104,9 @@ namespace skeleton
             stack.Children.Add(api.stack);
             if (is_focus)
                 api.z_focus(true);
+            main_page.z_ui.IsEnabled = false;
             var dv = await rt.Task;
+            main_page.z_ui.IsEnabled = true;
             if (is_focus)
                 z_focus(true);
             stack.Children.Remove(api.stack);

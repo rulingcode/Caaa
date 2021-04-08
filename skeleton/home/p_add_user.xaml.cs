@@ -76,6 +76,15 @@ namespace skeleton.home
             reset();
             txt_phone.PreviewKeyDown += Txt_phone_PreviewKeyDown;
             txt_code.PreviewKeyDown += Txt_code_PreviewKeyDown;
+            txt_phone.TextChanged += Txt_phone_TextChanged;
+        }
+        private void Txt_phone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (this.e != e_state.set_phone)
+            {
+                this.e = e_state.set_phone;
+                reset();
+            }
         }
         async void Txt_code_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -89,7 +98,13 @@ namespace skeleton.home
                     var dv = await api.run(y);
                     if (dv.a_error == layer_0.x_center.y_phone_login.error.non)
                     {
-                        
+                        var db = a.api3.c_db.general<m.m_user>();
+                        await db.upsert(new m.m_user()
+                        {
+                            id = dv.a_userid,
+                            phoneid = txt_phone.Text
+                        });
+                        reply(dv.a_userid);
                     }
                     else
                     {

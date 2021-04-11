@@ -51,5 +51,9 @@ namespace skeleton.more_controls
             stage.Child = val.stack;
             val.z_focus(true);
         }
+        internal void key_down(KeyEventArgs e)
+        {
+            
+        }
     }
 }

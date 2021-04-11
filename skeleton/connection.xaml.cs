@@ -126,16 +126,21 @@ namespace skeleton
             a.api3.c_db.general<m_data>().delete("key");
             a.api3.c_key = null;
         }
-        internal static void programing(Window window, z_app api)
+        internal static void programing(Window window)
         {
             if (a.window != null)
                 return;
             a.window = window;
+            a.window.PreviewKeyDown += Window_PreviewKeyDown;
             window.Title = "skeleton";
             window.WindowState = WindowState.Maximized;
             connection connection = new connection();
             window.Content = connection;
             connection.start();
+        }
+        private static void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            a.main_panel.key_down(e);
         }
     }
 }

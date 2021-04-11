@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace skeleton.m
 {
-    public class m_user : m_id
+    public class user : m_id
     {
-        public string phoneid { get; set; }
+        public string text { get; set; }
     }
 }

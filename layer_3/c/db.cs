@@ -42,5 +42,6 @@ namespace layer_3.c
         public async Task upsert(T val) => await run(() => coll.Upsert(val));
         public async Task delete(string id) => await run(() => coll.Delete(id));
         public async Task delete_many(Expression<Func<T, bool>> p) => await run(() => coll.DeleteMany(p));
+        public async Task<IEnumerable<T>> all(Expression<Func<T, bool>> filter) => await run(() => coll.Find(filter).ToArray());
     }
 }

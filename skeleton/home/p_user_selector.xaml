@@ -6,19 +6,9 @@
              xmlns:local="clr-namespace:skeleton.home" xmlns:more_controls="clr-namespace:skeleton.more_controls"
         mc:Ignorable="d" 
         CornerRadius="4">
-    <!--<StackPanel>
-        <more_controls:text_block Padding="10" text="لطفا کاربر مورد نظرتان را انتخاب کنید."/>
-        <Border VerticalAlignment="Top" Margin="10" CornerRadius="4"  BorderBrush="LightBlue" BorderThickness="2">
-            <ListBox FlowDirection="RightToLeft" x:Name="lst_users" BorderThickness="0"  Margin="2" >
-                <ListBoxItem Content="افزودن یک کاربر جدید"/>
-                <d:ListBoxItem Content="محسن پیرنجم الدین"/>
-            </ListBox>
-        </Border>
-    </StackPanel>-->
     <more_controls:label_box x:Name="lst" title="لطفا کاربر مورد نظرتان را انتخاب کنید.">
         <ListBox FlowDirection="RightToLeft" BorderThickness="0"  >
-            <ListBoxItem Content="افزودن یک کاربر جدید"/>
-            <d:ListBoxItem Content="محسن پیرنجم الدین"/>
+            <d:ListBoxItem Content="افزودن یک کاربر جدید"/>
         </ListBox>
     </more_controls:label_box>
 </Border>

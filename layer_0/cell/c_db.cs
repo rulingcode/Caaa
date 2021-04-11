@@ -16,5 +16,6 @@ namespace layer_0.cell
         Task<bool> any(Expression<Func<T, bool>> filter);
         Task delete(string id);
         Task delete_many(Expression<Func<T, bool>> p);
+        Task<IEnumerable<T>> all(Expression<Func<T, bool>> filter);
     }
 }

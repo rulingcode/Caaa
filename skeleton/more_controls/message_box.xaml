@@ -10,7 +10,7 @@
     <Border BorderBrush="DodgerBlue" BorderThickness="2,2,2,0"
             Margin="10,0,0,0"
             HorizontalAlignment="Left"
-            Width="120"
+            MinWidth="120"
             CornerRadius="4,4,0,0" Padding="5" Background="White">
         <ListBox x:Name="lb" HorizontalContentAlignment="Center" BorderThickness="0">
             <d:ListBoxItem  Content="hello"></d:ListBoxItem>

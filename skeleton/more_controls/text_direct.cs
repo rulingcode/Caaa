@@ -9,7 +9,7 @@ namespace skeleton.more_controls
 {
     class text_direct
     {
-        private const string fa = "پچجحخهعغفقثصضگکمنتالبیسشوئدذرزطظژ";
+        private const string fa = "پچجحخهعغفقثصضگکمنتاآلبیسشوئدذرزطظژ";
         private const string free = "0123456789 .-_";
         public static FlowDirection get_direction(string val)
         {

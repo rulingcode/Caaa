@@ -19,7 +19,7 @@ namespace skeleton.home
     /// <summary>
     /// Interaction logic for p_add_user.xaml
     /// </summary>
-    public partial class p_add_user : Border, page<string>
+    public partial class p_add_user : Border, page<m.user>
     {
         text_box txt_phone;
         PasswordBox txt_code;
@@ -54,7 +54,7 @@ namespace skeleton.home
             }
             focus();
         }
-        public Action<string> reply { get; set; }
+        public Action<m.user> reply { get; set; }
         public FrameworkElement z_ui => this;
         public e_size size => e_size.s2_phone;
         public string title => "افزودن یک کاربر جدید";
@@ -98,13 +98,14 @@ namespace skeleton.home
                     var dv = await api.run(y);
                     if (dv.a_error == layer_0.x_center.y_phone_login.error.non)
                     {
-                        var db = a.api3.c_db.general<m.m_user>();
-                        await db.upsert(new m.m_user()
+                        var db = a.api3.c_db.general<m.user>();
+                        m.user val = new m.user()
                         {
                             id = dv.a_userid,
-                            phoneid = txt_phone.Text
-                        });
-                        reply(dv.a_userid);
+                            text = txt_phone.Text
+                        };
+                        await db.upsert(val);
+                        reply(val);
                     }
                     else
                     {

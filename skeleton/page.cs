@@ -14,6 +14,7 @@ namespace skeleton
         void start(api api);
         e_size size { get; }
         string title { get; }
+        void close();
     }
     public interface page<T> : page
     {

@@ -33,6 +33,7 @@ namespace skeleton.home
         public FrameworkElement z_ui => this;
         public string title => "انتخاب کاربر";
         public e_size size => e_size.s2_phone;
+        public void close() { }
         public void focus()
         {
             if (lst_users.SelectedItem == null)
@@ -58,6 +59,7 @@ namespace skeleton.home
                 if (lst_users.SelectedItem == add_user)
                 {
                     var user = await api2.side(new p_add_user());
+                    if (user == null) return;
                     var dv = list.FirstOrDefault(i => i.id == user.id);
                     if (dv != null)
                         list.Remove(dv);

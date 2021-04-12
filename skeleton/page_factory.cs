@@ -13,7 +13,9 @@ namespace skeleton
         public abstract page create();
         public static void run(Window window, page_factory factory)
         {
-            connection.programing(window);
+            connection.start(window);
+            a.c_app = new c_app();
+            a.c_app.programing(factory);
         }
     }
 }

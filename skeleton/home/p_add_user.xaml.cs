@@ -150,5 +150,6 @@ namespace skeleton.home
         {
             await api.message(z_message.e_type.error, "شماره تلفن همراه وارد شده معتبر نیست.");
         }
+        public void close() => reply(default);
     }
 }

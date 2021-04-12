@@ -126,7 +126,7 @@ namespace skeleton
             a.api3.c_db.general<m_data>().delete("key");
             a.api3.c_key = null;
         }
-        internal static void programing(Window window)
+        internal static void start(Window window)
         {
             if (a.window != null)
                 return;

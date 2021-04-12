@@ -18,5 +18,6 @@ namespace skeleton
         internal static c_run run_null;
         internal static api api;
         internal static api user_selector;
+        internal static c_app c_app;
     }
 }

@@ -20,7 +20,6 @@ namespace skeleton
         int n_lock_screen = 0;
         SolidColorBrush color = new SolidColorBrush(Color.FromArgb(70, 0, 0, 0));
         loading loading = new loading();
-        bool is_focus = false;
         c_run c_run { get; }
         internal api(page page, c_run c_run)
         {
@@ -31,6 +30,13 @@ namespace skeleton
             main_page = page;
             api_ui.stage.Children.Add(page.z_ui);
             page.start(this);
+        }
+        public void close()
+        {
+            if (dialog_page == null)
+                main_page.close();
+            else
+                dialog_page.close();
         }
         public async Task<T> run<T>(y<T> val, bool lock_screen = true) where T : o_base, new()
         {
@@ -69,8 +75,7 @@ namespace skeleton
                 main_page.z_ui.IsEnabled = true;
                 if (dialog_page != null)
                     dialog_page.z_ui.IsEnabled = true;
-                if (is_focus)
-                    z_focus(true);
+                z_focus();
             }
             else
             {
@@ -97,18 +102,18 @@ namespace skeleton
         }
         public async Task<T> side<T>(page<T> page)
         {
+            dialog_page = page;
             set(page);
             TaskCompletionSource<T> rt = new TaskCompletionSource<T>();
             page.reply = rt.SetResult;
             api api = new api(page, c_run);
             stack.Children.Add(api.stack);
-            if (is_focus)
-                api.z_focus(true);
+            api.z_focus();
             main_page.z_ui.IsEnabled = false;
             var dv = await rt.Task;
+            dialog_page = null;
             main_page.z_ui.IsEnabled = true;
-            if (is_focus)
-                z_focus(true);
+            z_focus();
             stack.Children.Remove(api.stack);
             return dv;
         }
@@ -128,20 +133,15 @@ namespace skeleton
             dialog_page = null;
             api_ui.stage.Children.Remove(border);
             main_page.z_ui.IsEnabled = true;
-            if (is_focus)
-                z_focus(true);
+            z_focus();
             return dv;
         }
-        internal void z_focus(bool val)
+        internal void z_focus()
         {
-            is_focus = val;
-            if (is_focus)
-            {
-                if (dialog_page == null)
-                    main_page.focus();
-                else
-                    dialog_page.focus();
-            }
+            if (dialog_page == null)
+                main_page.focus();
+            else
+                dialog_page.focus();
         }
         public async Task<string> message(z_message.e_type e, string text, params string[] options)
         {

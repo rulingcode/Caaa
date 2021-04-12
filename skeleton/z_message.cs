@@ -61,5 +61,6 @@ namespace skeleton
             lb.ItemsSource = l;
             lb.SelectedIndex = 0;
         }
+        public void close() { }
     }
 }

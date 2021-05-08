@@ -21,7 +21,7 @@ namespace layer_3.s
             var key = await db.get(deviceid);
             if (key == null)
             {
-                y_get_key y = new y_get_key()
+                y_get_key_x y = new y_get_key_x()
                 {
                     a_deviceid = deviceid
                 };

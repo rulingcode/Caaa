@@ -8,8 +8,9 @@ using layer_0.cell;
 
 namespace layer_0.x_center
 {
-    public class y_phone_login : z_y<y_phone_login.o>
+    public class y_phone_login : y<y_phone_login.o>
     {
+        public override string z_xid => all_command.x_center;
         public override string z_yid => nameof(y_phone_login);
         public override e_permission z_permission => e_permission.k;
         public string a_phoneid { get; set; }

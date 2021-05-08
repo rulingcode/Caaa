@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace layer_0.x_center
 {
-    public class y_is_exist : z_y<y_is_exist.o>
+    public class y_is_exist : y<y_is_exist.o>
     {
+        public override string z_xid => all_command.x_center;
         public sealed override string z_yid => nameof(y_is_exist);
         public sealed override e_permission z_permission => e_permission.x;
         public string a_userid { get; set; }

@@ -37,7 +37,7 @@ namespace z_x_center.z
             };
             await db.upsert(device);
             await a.add_user(device.id, login.a_xid);
-            reply(new o() { deviceid = device.id });
+            reply(new o() { a_deviceid = device.id });
         }
         async Task<bool> check_login(m_register_x val)
         {

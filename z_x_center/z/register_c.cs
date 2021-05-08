@@ -36,7 +36,7 @@ namespace z_x_center.z
                 name = login.a_device_name
             };
             await db.upsert(device);
-            reply(new o() { deviceid = device.id });
+            reply(new o() { a_deviceid = device.id });
         }
         async Task<bool> check_login(m_register_c val)
         {
